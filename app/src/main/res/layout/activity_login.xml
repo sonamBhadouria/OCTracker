@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/pm_care_logo" />
+
+    <TextView
+        android:textSize="22sp"
+        android:textColor="@color/red"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="OC Tracker App"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:padding="5dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+          <!-- <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/mail_icon"/>-->
+
+            <EditText android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:background="@drawable/edittext_round_bg"
+                android:ellipsize="end"
+                android:inputType="textEmailAddress"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/ic_baseline_email_24"
+                android:textColorHint="@color/black" />
+
+        <EditText
+            android:layout_marginTop="15dp"
+            android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:background="@drawable/edittext_round_bg"
+                android:ellipsize="end"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
+                android:textColorHint="@color/black" />
+
+
+
+    </LinearLayout>
+
+
+
+    <Button android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+
+        android:id="@+id/tv_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Register"
+        android:textColor="@color/txt_bg"
+        android:clickable="true"
+        android:textSize="20sp"
+        android:gravity="right"
+        android:layout_gravity="center_horizontal"
+        />
+    <!--        android:text="V 0.1"-->
+
+    <!--   live-->
+    <!--    android:text="V 0.7"-->
+
+
+
+</LinearLayout>
+
+

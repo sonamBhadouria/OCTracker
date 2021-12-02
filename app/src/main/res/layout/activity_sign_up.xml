@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/pm_care_logo" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+
+        <EditText
+            android:layout_marginTop="15dp"
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_email"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:lines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:background="@drawable/edittext_round_bg"
+            android:ellipsize="end"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:textColorHint="@color/black" />
+
+
+
+        <EditText
+            android:layout_marginTop="15dp"
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_password"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:lines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:background="@drawable/edittext_round_bg"
+            android:ellipsize="end"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:textColorHint="@color/black" />
+
+
+
+        <EditText
+            android:layout_marginTop="15dp"
+            android:id="@+id/edt_fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:lines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:background="@drawable/edittext_round_bg"
+            android:ellipsize="end"
+            android:inputType="text"
+            android:padding="15dp"
+            android:textColorHint="@color/black" />
+
+
+        <EditText
+            android:layout_marginTop="15dp"
+            android:id="@+id/edt_lname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:lines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:background="@drawable/edittext_round_bg"
+            android:ellipsize="end"
+            android:inputType="text"
+            android:padding="15dp"
+            android:textColorHint="@color/black" />
+
+
+        <EditText
+            android:layout_marginTop="15dp"
+            android:id="@+id/edt_m_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mobile Number"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:lines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:background="@drawable/edittext_round_bg"
+            android:ellipsize="end"
+            android:inputType="phone"
+            android:padding="15dp"
+            android:maxLength="10"
+            android:textColorHint="@color/black" />
+
+        <RadioGroup
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/radioGroup"
+           >
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Warehouse"
+                android:id="@+id/radioButton"
+                android:layout_gravity="center_horizontal"
+                android:checked="true"
+               />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hospital"
+                android:id="@+id/radioButton2"
+                android:layout_gravity="center_horizontal"
+                android:checked="false"
+                />
+        </RadioGroup>
+
+
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="64dp"
+        android:text="Sign Up"
+         />
+
+
+
+    </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

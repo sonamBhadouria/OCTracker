@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:layout_marginTop="15dp"
+    android:id="@+id/edt_state"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="State"
+    android:layout_gravity="center"
+    android:maxLines="1"
+    android:lines="1"
+    android:textColor="@color/black"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    android:background="@drawable/edittext_round_bg"
+    android:ellipsize="end"
+    android:inputType="text"
+    android:padding="12dp"
+    android:textColorHint="@color/black"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
