@@ -160,38 +160,42 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.body() != null) {
                         showProgressDialogue.dismissDialogue();
-                        Toast.makeText(LoginActivity.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
-                        if (response.body().getAccessToken()!= null && !response.body().getAccessToken().equals("") ) {
-                            //Toast.makeText(LoginActivity.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
-                            SharedPrefData.saveIntoPrefs(getApplicationContext(),SharedPrefData.ACCESS_Token,response.body().getAccessToken(),0);
-                            SharedPrefData.saveIntoPrefs(getApplicationContext(),SharedPrefData.refreshToken,response.body().getRefreshToken(),0);
-                            SharedPrefData.saveIntoPrefs(getApplicationContext(),SharedPrefData.userName,response.body().getUserName(),0);
-                            SharedPrefData.saveIntoPrefs(getApplicationContext(),SharedPrefData.userId,Integer.toString(response.body().getUserId()),0);
-                            SharedPrefData.saveIntoPrefs(getApplicationContext(),SharedPrefData.email,response.body().getEmail(),0);
-                            SharedPrefData.saveIntoPrefs(getApplicationContext(),SharedPrefData.roleName,response.body().getRoleName(),0);
-                            SharedPrefData.saveIntoPrefs(getApplicationContext(),SharedPrefData.roleId,Integer.toString(response.body().getRoleId()),0);
+                        if (response.body().getAccessToken() != null && !response.body().getAccessToken().equals("")) {
+                                //Toast.makeText(LoginActivity.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
+                                SharedPrefData.saveIntoPrefs(getApplicationContext(), SharedPrefData.ACCESS_Token, response.body().getAccessToken(), 0);
+                                SharedPrefData.saveIntoPrefs(getApplicationContext(), SharedPrefData.refreshToken, response.body().getRefreshToken(), 0);
+                                SharedPrefData.saveIntoPrefs(getApplicationContext(), SharedPrefData.userName, response.body().getUserName(), 0);
+                                SharedPrefData.saveIntoPrefs(getApplicationContext(), SharedPrefData.userId, Integer.toString(response.body().getUserId()), 0);
+                                SharedPrefData.saveIntoPrefs(getApplicationContext(), SharedPrefData.email, response.body().getEmail(), 0);
+                                SharedPrefData.saveIntoPrefs(getApplicationContext(), SharedPrefData.roleName, response.body().getRoleName(), 0);
+                                SharedPrefData.saveIntoPrefs(getApplicationContext(), SharedPrefData.roleId, Integer.toString(response.body().getRoleId()), 0);
 
-                            if(response.body().getRoleId()==3)  //warehouse
-                            {
-                                usernameEditText.setText("");
-                                passwordEditText.setText("");
-                                Intent myIntent= new Intent(LoginActivity.this, AirportUserActivity.class);
-                                startActivity(myIntent);
-                               // finish();
-                            }else if(response.body().getRoleId()==4)  //hosp user
-                            {
-                                usernameEditText.setText("");
-                                passwordEditText.setText("");
-                                Intent myIntent= new Intent(LoginActivity.this, HospUserActivity.class);
-                                startActivity(myIntent);
-                               // finish();
+                                if (response.body().getRoleId() == 1) {
+                                    Toast.makeText(LoginActivity.this, "Not a valid Mobile App user", Toast.LENGTH_LONG).show();
+                                } else if (response.body().getRoleId() == 3)  //warehouse
+                                {
+                                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                    usernameEditText.setText("");
+                                    passwordEditText.setText("");
+                                    Intent myIntent = new Intent(LoginActivity.this, AirportUserActivity.class);
+                                    startActivity(myIntent);
+                                    // finish();
+                                } else if (response.body().getRoleId() == 4)  //hosp user
+                                {
+                                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                    usernameEditText.setText("");
+                                    passwordEditText.setText("");
+                                    Intent myIntent = new Intent(LoginActivity.this, HospUserActivity.class);
+                                    startActivity(myIntent);
+                                    // finish();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Error- Unsupported Role Id: " + response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                }
+
+
                             }
-                            else
-                            {
-                                Toast.makeText(LoginActivity.this,"Error- Unsupported Role Id: "+response.body().getMessage(),Toast.LENGTH_LONG).show();
-                            }
-
-
+                        else{
+                            Toast.makeText(LoginActivity.this, "Not a valid Mobile App user", Toast.LENGTH_LONG).show();
                         }
                     }
                     else {

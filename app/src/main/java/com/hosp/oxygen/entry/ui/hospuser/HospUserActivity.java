@@ -1,5 +1,6 @@
 package com.hosp.oxygen.entry.ui.hospuser;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -250,91 +251,87 @@ public class HospUserActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST) {
+                if (picUri != null) {
+                    Uri uri = picUri;
+                    String localPath = compressImage(uri.toString());
+                    System.out.println("compressedImageURl" + localPath);
+                    File imgFile = new File(localPath);
+                    if (imgFile.exists()) {
+                        try {
+                            showProgressDialogue.setProgressDialog(this, "Uploading image...");
+                            //                        String filePath = getRealPathFromURI(uri.toString());
+                            File fileUpload = new File(localPath);
+                            // create RequestBody instance from file
+                            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileUpload);
+                            // MultipartBody.Part is used to send also the actual file name
+                            MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileUpload.getName(), requestFile);
+                            String token = "Bearer " + getFromPrefs(SharedPrefData.ACCESS_Token);
+                            // finally, execute the request
+                            mApiInterface.Imageupload(token, body).enqueue(new Callback<ImageUploadResponse>() {
+                                @Override
+                                public void onResponse(Call<ImageUploadResponse> call, Response<ImageUploadResponse> response) {
+                                    if (response.isSuccessful()) {
+                                        Toast.makeText(getApplicationContext(), "Image uploaded", Toast.LENGTH_LONG).show();
 
-
-        if (requestCode == CAMERA_REQUEST) {
-            if (picUri != null) {
-                Uri uri = picUri;
-                String localPath = compressImage(uri.toString());
-                System.out.println("compressedImageURl" + localPath);
-                File imgFile = new File(localPath);
-                if (imgFile.exists()) {
-
-                    try {
-                        showProgressDialogue.setProgressDialog(this, "Uploading image...");
-                        //                        String filePath = getRealPathFromURI(uri.toString());
-                        File fileUpload = new File(localPath);
-                        // create RequestBody instance from file
-                        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileUpload);
-                        // MultipartBody.Part is used to send also the actual file name
-                        MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileUpload.getName(), requestFile);
-                        String token = "Bearer " + getFromPrefs(SharedPrefData.ACCESS_Token);
-                        // finally, execute the request
-                        mApiInterface.Imageupload(token, body).enqueue(new Callback<ImageUploadResponse>() {
-                            @Override
-                            public void onResponse(Call<ImageUploadResponse> call, Response<ImageUploadResponse> response) {
-                                if (response.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(), "Image uploaded", Toast.LENGTH_LONG).show();
-
-                                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                                    if (imageEvent == 1) {
-                                        iv_selfie.setImageBitmap(myBitmap);
-                                        selfieImageServerURL = response.body().getMessage();
+                                        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                                        if (imageEvent == 1) {
+                                            iv_selfie.setImageBitmap(myBitmap);
+                                            selfieImageServerURL = response.body().getMessage();
+                                        }
+                                        if (imageEvent == 2) {
+                                            iv_oc_image.setImageBitmap(myBitmap);
+                                            ocImageServerURL = response.body().getMessage();
+                                        }
+                                        if (imageEvent == 3) {
+                                            iv_pm_care_image.setImageBitmap(myBitmap);
+                                            pmCareLogoImageServerURL = response.body().getMessage();
+                                        }
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Image not uploaded", Toast.LENGTH_LONG).show();
                                     }
-                                    if (imageEvent == 2) {
-                                        iv_oc_image.setImageBitmap(myBitmap);
-                                        ocImageServerURL = response.body().getMessage();
+                                    if (showProgressDialogue != null) {
+                                        showProgressDialogue.dismissDialogue();
                                     }
-                                    if (imageEvent == 3) {
-                                        iv_pm_care_image.setImageBitmap(myBitmap);
-                                        pmCareLogoImageServerURL = response.body().getMessage();
-                                    }
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Image not uploaded", Toast.LENGTH_LONG).show();
                                 }
-                                if (showProgressDialogue != null) {
-                                    showProgressDialogue.dismissDialogue();
+
+                                @Override
+                                public void onFailure(Call<ImageUploadResponse> call, Throwable t) {
+                                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                                    if (showProgressDialogue != null) {
+                                        showProgressDialogue.dismissDialogue();
+                                    }
                                 }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            if (showProgressDialogue != null) {
+                                showProgressDialogue.dismissDialogue();
                             }
-
-                            @Override
-                            public void onFailure(Call<ImageUploadResponse> call, Throwable t) {
-                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                                if (showProgressDialogue != null) {
-                                    showProgressDialogue.dismissDialogue();
-                                }
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        if (showProgressDialogue != null) {
-                            showProgressDialogue.dismissDialogue();
                         }
                     }
-                }
 
-            }
-
-        }
-        else {
-            IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            // if the intentResult is null then
-            // toast a message as "cancelled"
-            if (intentResult != null) {
-                if (intentResult.getContents() == null) {
-                    // Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-                } else {
-                    // if the intentResult is not null we'll set
-                    // the content and format of scan message
-                    qr_response.setText(intentResult.getContents() + "-" + intentResult.getFormatName());
-                    validateQRCode();
                 }
             } else {
-                super.onActivityResult(requestCode, resultCode, data);
+                IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+                // if the intentResult is null then
+                // toast a message as "cancelled"
+                if (intentResult != null) {
+                    if (intentResult.getContents() == null) {
+                        // Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // if the intentResult is not null we'll set
+                        // the content and format of scan message
+                        qr_response.setText(intentResult.getContents() + "-" + intentResult.getFormatName());
+                        validateQRCode();
+                    }
+                } else {
+                    super.onActivityResult(requestCode, resultCode, data);
+                }
             }
         }
     }
-
 
     public void validateQRCode() {
         hospUSerQRCodeResponse=new HospUSerQRCodeResponse();
